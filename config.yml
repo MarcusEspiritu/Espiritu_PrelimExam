@@ -1,0 +1,24 @@
+---
+- hosts: 127.0.0.1
+  become: true
+  vars:
+   - user: user1
+   - password: fmdsfmkdlsfmsd
+  tasks:
+
+  - name: python
+    raw: apt -y update && apt install -y python-minimal
+
+  - name: Java
+    raw: apt -y update && apt install -y default-jre
+        
+  - name: Change motd
+    raw: sh -c 'echo "Ansible Manged node by MarcusEspiritu" > /etc/motd'
+      
+  - name: Create user
+    user:
+     name: "{{ user }}"
+     password: "{{ password }}"
+     state: present 
+     
+  
